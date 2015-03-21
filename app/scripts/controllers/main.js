@@ -8,15 +8,9 @@
  * Controller of the goatJsApp
  */
 angular.module('goatJsApp')
-  .controller('MainCtrl', function ($scope, $http) {
-    $scope.stores = [];
-    $http.get('http://localhost/stores').
-      success(function (data) {
-        for(var i = 0; i < data.length; ++i) {
-          $scope.stores.push(data[i]);
-        }
-      }).
-      error(function(data, status, headers, config) {
-        $scope.error = true;
-      })
+  .controller('MainCtrl', function ($scope, Store) {
+    $scope.stores = []
+    Store.getStoreList().then(function(data) {
+      $scope.stores = data;
+    });
   });
